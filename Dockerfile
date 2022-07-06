@@ -29,7 +29,7 @@ ARG BUILD_DATE="$(date +'%Y-%m-%d %H:%M')"
 
 LABEL \
   org.label-schema.name="tmux" \
-  org.label-schema.description="simple container for bash" \
+  org.label-schema.description="simple container for bash/tmux" \
   org.label-schema.url="https://github.com/casjaysdev/bash" \
   org.label-schema.vcs-url="https://github.com/casjaysdev/bash" \
   org.label-schema.build-date=$BUILD_DATE \
