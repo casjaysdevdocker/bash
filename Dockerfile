@@ -1,6 +1,7 @@
 FROM alpine:edge as build
 
-RUN apk --no-cache add --update \
+RUN apk --no-cache && \
+  apk --no-cache add \
   bash \
   curl \
   ca-certificates \
@@ -30,12 +31,12 @@ ARG BUILD_DATE="$(date +'%Y-%m-%d %H:%M')"
 LABEL \
   org.label-schema.name="tmux" \
   org.label-schema.description="simple container for bash/tmux" \
-  org.label-schema.url="https://github.com/casjaysdev/bash" \
-  org.label-schema.vcs-url="https://github.com/casjaysdev/bash" \
+  org.label-schema.url="https://hub.docker.com/r/casjaysdevdocker/bash" \
+  org.label-schema.vcs-url="https://github.com/casjaysdevdocker/bash" \
   org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.version=$BUILD_DATE \
   org.label-schema.vcs-ref=$BUILD_DATE \
-  org.label-schema.license="MIT" \
+  org.label-schema.license="WTFPL" \
   org.label-schema.vcs-type="Git" \
   org.label-schema.schema-version="latest" \
   org.label-schema.vendor="CasjaysDev" \
