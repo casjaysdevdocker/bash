@@ -25,7 +25,7 @@ casjaysdev/bash:latest
 version: "2"
 services:
   bash:
-    image: casjaysdev/bash
+    image: casjaysdevdocker/bash
     container_name: bash
     environment:
       - TZ=America/New_York
