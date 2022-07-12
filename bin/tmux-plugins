@@ -23,20 +23,24 @@ SRC_DIR="${BASH_SOURCE%/*}"
 # @Other         :
 # @Resource      :
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-TMUX_HOME="$HOME/.config/tmux"
-TMUX_SHARE_DIR="$HOME/.local/share/tmux"
-TMUX_PLUGIN_MANAGER_PATH="$TMUX_SHARE_DIR/tpm"
+TMUX_HOME="${TMUX_HOME:-$HOME/.config/tmux}"
+TMUX_SHARE_DIR="${TMUX_SHARE_DIR:-$HOME/.local/share/tmux}"
+TMUX_PLUGIN_MANAGER_PATH="${TMUX_PLUGIN_MANAGER_PATH:-$TMUX_SHARE_DIR/tpm}"
 export TMUX_HOME TMUX_PLUGIN_MANAGER_PATH TMUX_SHARE_DIR
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+[[ -f "/config/.env.sh" ]] && . "/config/.env.sh"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 [[ -d "$TMUX_PLUGIN_MANAGER_PATH/.git" ]] && git -C "$TMUX_PLUGIN_MANAGER_PATH" pull ||
-  git clone https://github.com/tmux-plugins/tpm "$TMUX_PLUGIN_MANAGER_PATH"
+  git clone "https://github.com/tmux-plugins/tpm" "$TMUX_PLUGIN_MANAGER_PATH"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 [ -x "$TMUX_PLUGIN_MANAGER_PATH/bin/install_plugins" ] &&
   $TMUX_PLUGIN_MANAGER_PATH/bin/install_plugins
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 mkdir -p "$TMUX_SHARE_DIR/resurrect"
-[[ -f "$TMUX_HOME/resurrect" ]] && ln -sf "$TMUX_HOME/resurrect" "$TMUX_SHARE_DIR/resurrect/last"
+[[ -f "$TMUX_HOME/resurrect" ]] &&
+  ln -sf "$TMUX_HOME/resurrect" "$TMUX_SHARE_DIR/resurrect/last"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-#[[ -f "$TMUX_PLUGIN_MANAGER_PATH/tpm" ]] && [[ -f "$TMUX_SHARE_DIR/resurrect/last" ]] && echo "Install completed"
+#[[ -f "$TMUX_PLUGIN_MANAGER_PATH/tpm" ]] && \
+#  [[ -f "$TMUX_SHARE_DIR/resurrect/last" ]] && echo "Install completed"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 exit ${exitCode:-0}
