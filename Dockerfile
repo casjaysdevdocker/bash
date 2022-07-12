@@ -1,58 +1,55 @@
-FROM alpine:edge as build
+FROM casjaysdevdocker/alpine:latest as build
 
-RUN apk --no-cache && \
-  apk --no-cache add \
-  bash \
-  curl \
-  ca-certificates \
-  git \
-  tmux \
-  util-linux \
-  pciutils \
-  usbutils \
-  coreutils \
-  binutils \
-  findutils \
-  grep \
-  iproute2 && \
-  ln -sf /bin/bash /bin/sh
+ARG LICENSE=WTFPL \
+  IMAGE_NAME=bash \
+  TIMEZONE=America/New_York \
+  PORT=
 
-COPY ./config/resurrect/ /root/.cache/resurrect/
-COPY ./config/tmux.conf /root/.tmux.conf
-COPY ./config/bashrc /root/.bashrc
+ENV SHELL=/bin/bash \
+  TERM=xterm-256color \
+  HOSTNAME=${HOSTNAME:-casjaysdev-$IMAGE_NAME} \
+  TZ=$TIMEZONE 
+
+RUN mkdir -p /bin/ /config/ /data/ && \
+  rm -Rf /bin/.gitkeep /config/.gitkeep /data/.gitkeep && \
+  apk update -U --no-cache && \
+  apk add --no-cache tmux && \
+  /usr/local/bin/tux-plugins
+
 COPY ./bin/. /usr/local/bin/
-
-RUN /usr/local/bin/tmux-plugins
+COPY ./config/. /config/
+COPY ./data/. /data/
 
 FROM scratch
-
 ARG BUILD_DATE="$(date +'%Y-%m-%d %H:%M')"
 
-LABEL \
-  org.label-schema.name="tmux" \
-  org.label-schema.description="simple container for bash/tmux" \
+LABEL org.label-schema.name="bash" \
+  org.label-schema.description="Containerized version of bash" \
   org.label-schema.url="https://hub.docker.com/r/casjaysdevdocker/bash" \
   org.label-schema.vcs-url="https://github.com/casjaysdevdocker/bash" \
   org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.version=$BUILD_DATE \
   org.label-schema.vcs-ref=$BUILD_DATE \
-  org.label-schema.license="WTFPL" \
+  org.label-schema.license="$LICENSE" \
   org.label-schema.vcs-type="Git" \
   org.label-schema.schema-version="latest" \
   org.label-schema.vendor="CasjaysDev" \
   maintainer="CasjaysDev <docker-admin@casjaysdev.com>"
 
-ENV VIM_INDENT="2" \
-  SHELL="/bin/bash" \
+ENV SHELL="/bin/bash" \
   TERM="xterm-256color" \
-  HOSTNAME="casjaysdev-vim" \
-  TZ="${TZ:-America/New_York}"
+  HOSTNAME="casjaysdev-bash" \
+  TZ="${TZ:-America/New_York}" \
+  TMUX_HOME="$HOME/.config/tmux"
 
 WORKDIR /root
-VOLUME ["/root","/config"]
+
+VOLUME ["/root","/config","/data"]
+
+EXPOSE $PORT
 
 COPY --from=build /. /
 
-HEALTHCHECK CMD [ "/usr/local/bin/entrypoint-bash.sh", "healthcheck" ]
-ENTRYPOINT [ "/usr/local/bin/entrypoint-bash.sh" ]
-CMD [ "/usr/bin/tmux" ]
+HEALTHCHECK CMD ["/usr/local/bin/entrypoint-bash.sh", "healthcheck"]
+
+ENTRYPOINT ["/usr/local/bin/entrypoint-bash.sh"]
