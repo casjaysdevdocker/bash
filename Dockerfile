@@ -16,6 +16,8 @@ RUN mkdir -p /bin/ /config/ /data/ && \
   apk add --no-cache tmux && \
   /usr/local/bin/tux-plugins
 
+COPY ./config/tmux.conf /root/.tmux.conf
+COPY ./config/bashrc /root/.bashrc
 COPY ./bin/. /usr/local/bin/
 COPY ./config/. /config/
 COPY ./data/. /data/
