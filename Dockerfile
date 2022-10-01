@@ -13,14 +13,15 @@ ENV SHELL=/bin/bash \
 RUN mkdir -p /bin/ /config/ /data/ && \
   rm -Rf /bin/.gitkeep /config/.gitkeep /data/.gitkeep && \
   apk update -U --no-cache && \
-  apk add --no-cache tmux && \
-  /usr/local/bin/tux-plugins
+  apk add --no-cache tmux
 
 COPY ./config/tmux.conf /root/.tmux.conf
 COPY ./config/bashrc /root/.bashrc
 COPY ./bin/. /usr/local/bin/
 COPY ./config/. /config/
 COPY ./data/. /data/
+
+RUN /usr/local/bin/tmux-plugins
 
 FROM scratch
 ARG BUILD_DATE="$(date +'%Y-%m-%d %H:%M')"
