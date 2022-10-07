@@ -8,7 +8,7 @@ ARG LICENSE=WTFPL \
 ENV SHELL=/bin/bash \
   TERM=xterm-256color \
   HOSTNAME=${HOSTNAME:-casjaysdev-$IMAGE_NAME} \
-  TZ=$TIMEZONE 
+  TZ=$TIMEZONE
 
 RUN mkdir -p /bin/ /config/ /data/ && \
   rm -Rf /bin/.gitkeep /config/.gitkeep /data/.gitkeep && \
@@ -53,6 +53,6 @@ EXPOSE $PORT
 
 COPY --from=build /. /
 
-HEALTHCHECK CMD ["/usr/local/bin/entrypoint-bash.sh", "healthcheck"]
+HEALTHCHECK --interval=15s --timeout=3s CMD ["/usr/local/bin/entrypoint-bash.sh", "healthcheck"]
 
 ENTRYPOINT ["/usr/local/bin/entrypoint-bash.sh"]
