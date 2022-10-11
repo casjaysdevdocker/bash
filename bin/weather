@@ -20,10 +20,6 @@ HOME="${USER_HOME:-${HOME}}"
 SRC_DIR="$(dirname "$PROG")"
 VERSION="202207060012-git"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Set bash options
-if [ "$1" = "--debug" ]; then shift 1 && set -xo && export SCRIPT_OPTS="--debug" && export _DEBUG="on"; fi
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Check for needed applications
 #type -P sh &>/dev/null || exit 1 # exit if not found
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
