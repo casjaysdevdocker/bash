@@ -33,6 +33,11 @@ export LESS_TERMCAP_so=$'\e[1;93m'
 export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;92m'
 
+# tmux
+export TMUX_HOME="$HOME/.config/tmux"
+export TMUX_SHARE_DIR="$HOME/.local/share/tmux"
+export TMUX_PLUGIN_MANAGER_PATH="$TMUX_SHARE_DIR/tpm"
+
 # aliases
 alias :q='exit'
 alias q='exit'
