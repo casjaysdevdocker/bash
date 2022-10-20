@@ -5,10 +5,10 @@
 # @@Author           :  Jason Hempstead
 # @@Contact          :  jason@casjaysdev.com
 # @@License          :  LICENSE.md
-# @@ReadME           :  start-bash.sh --help
+# @@ReadME           :  start-tmux.sh --help
 # @@Copyright        :  Copyright: (c) 2022 Jason Hempstead, Casjays Developments
 # @@Created          :  Thursday, Oct 20, 2022 14:31 EDT
-# @@File             :  start-bash.sh
+# @@File             :  start-tmux.sh
 # @@Description      :  script to start bash
 # @@Changelog        :  New script
 # @@TODO             :  Better documentation
@@ -71,7 +71,7 @@ CONTAINER_IP_ADDRESS="$(ip a 2>/dev/null | grep 'inet' | grep -v '127.0.0.1' | a
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Overwrite variables
 SERVICE_NAME="tmux"
-SERVICE_COMMAND="tmux -f $TMUX_HOME/tmux.conf new-session -D -A -s default"
+SERVICE_COMMAND="$SERVICE_NAME -f $TMUX_HOME/tmux.conf new-session -D -A -s default"
 export exec_message="Starting $SERVICE_NAME on $CONTAINER_IP_ADDRESS:$SERVICE_PORT"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Pre copy commands

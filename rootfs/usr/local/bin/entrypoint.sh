@@ -55,7 +55,7 @@ __heath_check() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 __start_all_services() {
   echo "$service_message"
-  bash -l
+  start-tmux.sh
   return $?
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
