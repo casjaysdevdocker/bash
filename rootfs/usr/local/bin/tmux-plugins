@@ -33,7 +33,7 @@ else
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if [ -x "$TMUX_PLUGIN_MANAGER_PATH/bin/install_plugins" ]; then
-  $TMUX_PLUGIN_MANAGER_PATH/bin/install_plugins
+  bash -c "$TMUX_PLUGIN_MANAGER_PATH/bin/install_plugins"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 [ -d "$TMUX_SHARE_DIR/resurrect" ] || mkdir -p "$TMUX_SHARE_DIR/resurrect"
