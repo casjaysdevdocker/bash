@@ -12,8 +12,8 @@
 # @@Description      :  entrypoint point for bash
 # @@Changelog        :  New script
 # @@TODO             :  Better documentation
-# @@Other            :  
-# @@Resource         :  
+# @@Other            :
+# @@Resource         :
 # @@Terminal App     :  no
 # @@sudo/root        :  no
 # @@Template         :  other/docker-entrypoint
@@ -97,6 +97,9 @@ CONTAINER_IP_ADDRESS="$(ip a 2>/dev/null | grep 'inet' | grep -v '127.0.0.1' | a
 #SERVICE_NAME=""
 export service_message="Starting $CONTAINER_NAME"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+export TMUX_HOME="${TMUX_HOME:-$HOME/.config/tmux}"
+export TMUX_SHARE_DIR="${TMUX_SHARE_DIR:-$HOME/.local/share/tmux}"
+export TMUX_PLUGIN_MANAGER_PATH="${TMUX_PLUGIN_MANAGER_PATH:-$TMUX_SHARE_DIR/tpm}"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Check if this is a new container
 [ -f "/data/.docker_has_run" ] && DATA_DIR_INITIALIZED="true" || DATA_DIR_INITIALIZED="false"

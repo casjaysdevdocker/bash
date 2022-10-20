@@ -70,12 +70,8 @@ CONTAINER_IP_ADDRESS="$(ip a 2>/dev/null | grep 'inet' | grep -v '127.0.0.1' | a
 [ "$HTTPS_PORT" = "443" ] && HTTP_PORT="$HTTPS_PORT" && SSL_ENABLED="true"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Overwrite variables
-#SERVICE_PORT=""
-SERVICE_NAME="bash"
-SERVICE_COMMAND="tmux -f default new-session -D -A -s default"
-export TMUX_HOME="${TMUX_HOME:-$HOME/.config/tmux}"
-export TMUX_SHARE_DIR="${TMUX_SHARE_DIR:-$HOME/.local/share/tmux}"
-export TMUX_PLUGIN_MANAGER_PATH="${TMUX_PLUGIN_MANAGER_PATH:-$TMUX_SHARE_DIR/tpm}"
+SERVICE_NAME="tmux"
+SERVICE_COMMAND="tmux -f $TMUX_HOME/tmux.conf new-session -D -A -s default"
 export exec_message="Starting $SERVICE_NAME on $CONTAINER_IP_ADDRESS:$SERVICE_PORT"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Pre copy commands
@@ -143,12 +139,7 @@ certbot)
   ;;
 
 *)
-  if __pgrep "$SERVICE_NAME" && [ ! -f "/tmp/$SERVICE_NAME.pid" ]; then
-    echo "$SERVICE_NAME is running"
-  else
-    touch "/tmp/$SERVICE_NAME.pid"
-    __exec_command "$SERVICE_COMMAND" || rm -Rf "/tmp/$SERVICE_NAME.pid"
-  fi
+  __exec_command "$SERVICE_COMMAND"
   ;;
 esac
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Set bash options
 [ -n "$DEBUG" ] && set -x
-set -o pipefail
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 set -eu
 
