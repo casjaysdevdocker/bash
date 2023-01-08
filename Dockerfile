@@ -6,9 +6,9 @@ ARG DEFAULT_DATA_DIR="/usr/local/share/template-files/data" \
   DEFAULT_CONF_DIR="/usr/local/share/template-files/config" \
   DEFAULT_TEMPLATE_DIR="/usr/local/share/template-files/defaults"
 
-ARG PACK_LIST="bash tmux xdotool"
+ARG PACK_LIST="bash"
 
-ENV LANG=en_US.utf8 \
+ENV LANG=en_US.UTF-8 \
   ENV=ENV=~/.bashrc \
   TZ="America/New_York" \
   SHELL="/bin/sh" \
@@ -25,7 +25,7 @@ RUN set -ex; \
   echo "http://dl-cdn.alpinelinux.org/alpine/${ALPINE_VERSION}/community" >>"/etc/apk/repositories"; \
   if [ "${ALPINE_VERSION}" = "edge" ]; then echo "http://dl-cdn.alpinelinux.org/alpine/${ALPINE_VERSION}/testing" >>"/etc/apk/repositories" ; fi ; \
   apk update --update-cache && apk add --no-cache ${PACK_LIST} && \
-  bash -c "/usr/local/bin/tmux-plugins"
+  echo
 
 RUN echo 'Running cleanup' ; \
   rm -Rf /usr/share/doc/* /usr/share/info/* /tmp/* /var/tmp/* ; \
@@ -42,15 +42,15 @@ RUN echo 'Running cleanup' ; \
 FROM scratch
 
 ARG \
-  SERVICE_PORT="" \
-  EXPOSE_PORTS="1-65535" \
+  SERVICE_PORT="80" \
+  EXPOSE_PORTS="80" \
   PHP_SERVER="bash" \
   NODE_VERSION="system" \
   NODE_MANAGER="system" \
   BUILD_VERSION="latest" \
   LICENSE="MIT" \
   IMAGE_NAME="bash" \
-  BUILD_DATE="Thu Oct 20 02:31:06 PM EDT 2022" \
+  BUILD_DATE="Sun Nov 13 12:15:53 PM EST 2022" \
   TIMEZONE="America/New_York"
 
 LABEL maintainer="CasjaysDev <docker-admin@casjaysdev.com>" \
@@ -68,9 +68,10 @@ LABEL maintainer="CasjaysDev <docker-admin@casjaysdev.com>" \
   org.opencontainers.image.vcs-url="https://github.com/casjaysdevdocker/${IMAGE_NAME}" \
   org.opencontainers.image.url.source="https://github.com/casjaysdevdocker/${IMAGE_NAME}" \
   org.opencontainers.image.documentation="https://hub.docker.com/r/casjaysdevdocker/${IMAGE_NAME}" \
-  org.opencontainers.image.description="Containerized version of ${IMAGE_NAME}"
+  org.opencontainers.image.description="Containerized version of ${IMAGE_NAME}" \
+  com.github.containers.toolbox="false"
 
-ENV LANG=en_US.utf8 \
+ENV LANG=en_US.UTF-8 \
   ENV=~/.bashrc \
   SHELL="/bin/bash" \
   PORT="${SERVICE_PORT}" \
@@ -93,3 +94,4 @@ EXPOSE $EXPOSE_PORTS
 #CMD [ "" ]
 ENTRYPOINT [ "tini", "-p", "SIGTERM", "--", "/usr/local/bin/entrypoint.sh" ]
 HEALTHCHECK --start-period=1m --interval=2m --timeout=3s CMD [ "/usr/local/bin/entrypoint.sh", "healthcheck" ]
+
