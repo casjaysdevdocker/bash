@@ -87,7 +87,7 @@ RUN touch "/etc/profile" "/root/.profile" ; \
   pip install certbot-dns-rfc2136
 
 RUN set -ex ; \
-  echo
+  sh -c "/root/.config/tmux/plugins.sh"
 
 RUN echo 'Running cleanup' ; \
   echo ""

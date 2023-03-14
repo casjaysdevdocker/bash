@@ -49,3 +49,5 @@ alias sv='sudo vim '
 [ -r "$HOME/.bash_functions" ] && . "$BCFuncs"
 [ -r "/usr/share/bash-completion/bash_completion" ] && . "$UsrBashComp"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+new-session -A -s main
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
