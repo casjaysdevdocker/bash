@@ -73,24 +73,7 @@ MONGODB_CONFIG_FILE="${MONGODB_CONFIG_FILE:-$(__find_mongodb_conf)}"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Last thing to run before options
 __run_pre() {
-  if [ "$ENTRYPOINT_FIRST_RUN" = "false" ]; then # Run on initial creation
-    true
-  fi
-  if [ "$CONFIG_DIR_INITIALIZED" = "false" ]; then # Initial config
-    true
-  fi
-  if [ "$DATA_DIR_INITIALIZED" = "false" ]; then
-    true
-  fi
-  # End Initial config
-  if [ "$START_SERVICES" = "yes" ]; then # only run on start
-    true
-  fi # end run on start
-  # Run everytime container starts
-  # __certbot
-  # __create_ssl_cert
-  # __update_ssl_certs
-  # end
+
   return 0
 }
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
