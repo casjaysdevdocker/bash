@@ -46,9 +46,6 @@ alias v='vim '
 alias sv='sudo vim '
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # completions
-UsrBashComp='/usr/share/bash-completion/bash_completion'
-[[ -f $UsrBashComp && -r $UsrBashComp ]] && . "$UsrBashComp"
-BCFuncs="$HOME/.bash_functions"
-[[ -f $BCFuncs && -r $BCFuncs ]] && . "$BCFuncs"
-unset BCAliases BCFuncs UsrBashComp
+[ -r "$HOME/.bash_functions" ] && . "$BCFuncs"
+[ -r "/usr/share/bash-completion/bash_completion" ] && . "$UsrBashComp"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
